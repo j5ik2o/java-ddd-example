@@ -1,4 +1,4 @@
-package com.github.j5ik2o.ddd_example;
+package com.github.j5ik2o.ddd_eaxmple.utils;
 
 import java.util.concurrent.atomic.AtomicLong;
 

@@ -1,5 +1,6 @@
-package com.github.j5ik2o.ddd_example;
+package com.github.j5ik2o.ddd_example.domain;
 
+import com.github.j5ik2o.ddd_eaxmple.utils.IdGenerator;
 import com.google.common.collect.Lists;
 import lombok.NonNull;
 import lombok.Value;
