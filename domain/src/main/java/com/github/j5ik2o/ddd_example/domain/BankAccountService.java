@@ -1,6 +1,5 @@
 package com.github.j5ik2o.ddd_example.domain;
 
-import com.github.j5ik2o.ddd_eaxmple.utils.IdGenerator;
 import lombok.Value;
 
 public final class BankAccountService {
@@ -11,12 +10,10 @@ public final class BankAccountService {
         private BankAccount from;
     }
 
-    public static Result transfer(BankAccount to, BankAccount from, Money amount)  {
-        Long decrementEventId = IdGenerator.generateId();
-        BankAccountEvent fromDecrementEvent = BankAccountEvent.of(decrementEventId, to.getId(), from.getId(), amount.negated());
-        Long incrementEventId = IdGenerator.generateId();
-        BankAccountEvent toIncrementEvent = BankAccountEvent.of(incrementEventId, to.getId(), from.getId(), amount);
-        return new Result(to.addEvent(toIncrementEvent),from.addEvent(fromDecrementEvent));
+    public static Result transfer(BankAccount to, BankAccount from, Money amount) {
+        BankAccount updatedFrom = from.withdrawTo(to, amount);
+        BankAccount updatedTo = to.depositFrom(from, amount);
+        return new Result(updatedTo, updatedFrom);
     }
 
 }

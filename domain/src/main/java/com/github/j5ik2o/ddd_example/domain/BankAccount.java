@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import lombok.NonNull;
 import lombok.Value;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Value
@@ -16,43 +17,41 @@ public final class BankAccount {
     @NonNull
     private List<BankAccountEvent> events;
 
-    public BankAccount addEvent(BankAccountEvent event) {
-        List<BankAccountEvent> result = Lists.newArrayList(this.events);
+    private BankAccount addBankAccountEvent(Long toBankAccountId, Long fromBankAccountId, Money amount) {
+        Long eventId = IdGenerator.generateId();
+        return addBankAccountEvent(BankAccountEvent.of(eventId, id, null, amount));
+    }
+
+    private BankAccount addBankAccountEvent(BankAccountEvent event) {
+        List<BankAccountEvent> result = Lists.newArrayList(events);
         result.add(event);
         return of(id, result);
     }
 
-    public BankAccount addIncrementAmount(Money amount) {
-        Long eventId = IdGenerator.generateId();
-        return addEvent(BankAccountEvent.of(eventId, id, null, amount));
+    public BankAccount depositCash(Money amount) {
+        return addBankAccountEvent(id, null, amount);
     }
 
-    public BankAccount addDecrementAmount(Money amount) {
-        return addIncrementAmount(amount.negated());
+    public BankAccount withdrawCash(Money amount) {
+        return addBankAccountEvent(null, id, amount.negated());
     }
 
-    public BankAccount addIncrementEvent(BankAccount from, Money amount) {
-        Long eventId = IdGenerator.generateId();
-        return addEvent(BankAccountEvent.of(eventId, id, from.getId(), amount));
+    public BankAccount depositFrom(BankAccount from, Money amount) {
+        return addBankAccountEvent(id, from.getId(), amount);
     }
 
-    public BankAccount addDecrementEvent(BankAccount from, Money amount) {
-        return addIncrementEvent(from, amount.negated());
-    }
-
-    private List<Money> getMonies() {
-        List<Money> result = Lists.newArrayList();
-        for (BankAccountEvent event : events) {
-            result.add(event.getAmount());
-        }
-        return result;
+    public BankAccount withdrawTo(BankAccount to, Money amount) {
+        return addBankAccountEvent(to.getId(), id, amount.negated());
     }
 
     public Money getTotalAmount() {
-        return Money.sum(getMonies());
+        return getTotalAmountByEvents(events);
     }
 
     public static BankAccount of(Long id, List<BankAccountEvent> events) {
+        if (getTotalAmountByEvents(events).isLessThan(BigDecimal.ZERO)) {
+            throw new IllegalArgumentException("total amount is less than zero!");
+        }
         return new BankAccount(id, events);
     }
 
@@ -60,4 +59,19 @@ public final class BankAccount {
         return of(id, Lists.newArrayList());
     }
 
+    private static Money getTotalAmountByEvents(List<BankAccountEvent> events) {
+        return getTotalAmountByMonies(getMonies(events));
+    }
+
+    private static Money getTotalAmountByMonies(List<Money> monies) {
+        return Money.sum(monies);
+    }
+
+    private static List<Money> getMonies(List<BankAccountEvent> events) {
+        List<Money> result = Lists.newArrayList();
+        for (BankAccountEvent event : events) {
+            result.add(event.getAmount());
+        }
+        return result;
+    }
 }

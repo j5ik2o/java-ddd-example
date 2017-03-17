@@ -18,14 +18,6 @@ public final class Money {
     @NonNull
     private Currency currency;
 
-    public Money dividedBy(BigDecimal divisor) {
-        return dividedBy(divisor, DefaultRoundingMode);
-    }
-
-    public Money dividedBy(BigDecimal divisor, int roundingMode) {
-        BigDecimal newAmount = amount.divide(divisor, roundingMode);
-        return of(newAmount, currency);
-    }
 
     public Money negated() {
         return of(amount.negate(), currency);
@@ -41,6 +33,22 @@ public final class Money {
         return plus(other.negated());
     }
 
+    public boolean isGreaterThan(Money other) {
+        return isGreaterThan(other.amount);
+    }
+
+    public boolean isGreaterThan(BigDecimal amount) {
+        return this.amount.compareTo(amount) > 0;
+    }
+
+    public boolean isLessThan(Money other) {
+        return isLessThan(other.amount);
+    }
+
+    public boolean isLessThan(BigDecimal amount) {
+        return this.amount.compareTo(amount) < 0;
+    }
+
     public static Money sum(List<Money> monies) {
         if (monies.isEmpty()) {
             return zero(Money.DefaultCurrency);
@@ -52,6 +60,14 @@ public final class Money {
             }
             return result;
         }
+    }
+
+    public static Money of(int amount) {
+        return of(BigDecimal.valueOf(amount));
+    }
+
+    public static Money of(long amount) {
+        return of(BigDecimal.valueOf(amount));
     }
 
     public static Money of(BigDecimal amount, Currency currency) {
@@ -72,6 +88,10 @@ public final class Money {
 
     public static Money zero(Currency currency) {
         return of(BigDecimal.ZERO, currency);
+    }
+
+    public static Money zero() {
+        return zero(DefaultCurrency);
     }
 
     public static Currency DefaultCurrency =

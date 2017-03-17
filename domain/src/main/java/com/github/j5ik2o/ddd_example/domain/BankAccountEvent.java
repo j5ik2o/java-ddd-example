@@ -9,7 +9,6 @@ import java.time.ZonedDateTime;
 public final class BankAccountEvent {
     @NonNull
     private Long id;
-    @NonNull
     private Long toBankAccountId;
     private Long fromBankAccountId;
     @NonNull
