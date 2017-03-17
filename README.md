@@ -17,7 +17,7 @@ Resolve transfer between Bank Accounts.
     - A Money can be subtracted another money.
     - A Money can be compared another money.
 - Bank Account Domain Model
-    - A BankAccount can be gotten the balance.
+    - A Bank Account can be gotten the balance.
     - A Bank Account can be added events of cash deposit or cash withdrawal.
     - A Bank Account can be added deposit event from another Bank Account, and withdrawal event to another Bank Account.
     - The Balance of the Bank Account must not be less than 0.
