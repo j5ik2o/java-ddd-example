@@ -134,7 +134,9 @@ System.out.println("from = " + transferResult.getFrom().getBalance());
 
 ## An example of transfer between Bank Accounts in Anemic objects.
 
-This example is overwhelmingly detailed, there is no mental model.
+This example is overwhelmingly detailed.
+Because there is no mental model, this codes is difficult to understand.
+Changing the code is also difficult if the domain models is changed.
 
 ```java
 public static Money getBalance(BankAccount bankAccount){
