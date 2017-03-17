@@ -2,14 +2,11 @@
 
 This project is an example for DDD.
 
-## domain models are followings.
+## Domain
 
-- [Money](https://github.com/j5ik2o/java-ddd-example/blob/master/domain/src/main/java/com/github/j5ik2o/ddd_example/domain/Money.java)
-- [BankAccount](https://github.com/j5ik2o/java-ddd-example/blob/master/domain/src/main/java/com/github/j5ik2o/ddd_example/domain/BankAccount.java)
-  - [BankAccountEvent](https://github.com/j5ik2o/java-ddd-example/blob/master/domain/src/main/java/com/github/j5ik2o/ddd_example/domain/BankAccountEvent.java)
-- [BankAccountService](https://github.com/j5ik2o/java-ddd-example/blob/master/domain/src/main/java/com/github/j5ik2o/ddd_example/domain/BankAccountService.java)
+This example is a domain related to the Bank Account.
 
-## Ubiquitous Language and Domain Models
+## Ubiquitous Language
 
 - Money Domain Model 
     - A Money can be added another money.
@@ -22,7 +19,16 @@ This project is an example for DDD.
     - The Balance of the Bank Account must not be less than 0.
 - Bank Account Domain Service
     - The Bank Account Service can transfer a money from a Bank Account to a Bank Account.
-    
+
+## Domain Models
+
+Domain models are followings.
+
+- [Money](https://github.com/j5ik2o/java-ddd-example/blob/master/domain/src/main/java/com/github/j5ik2o/ddd_example/domain/Money.java)
+- [BankAccount](https://github.com/j5ik2o/java-ddd-example/blob/master/domain/src/main/java/com/github/j5ik2o/ddd_example/domain/BankAccount.java)
+  - [BankAccountEvent](https://github.com/j5ik2o/java-ddd-example/blob/master/domain/src/main/java/com/github/j5ik2o/ddd_example/domain/BankAccountEvent.java)
+- [BankAccountService](https://github.com/j5ik2o/java-ddd-example/blob/master/domain/src/main/java/com/github/j5ik2o/ddd_example/domain/BankAccountService.java)
+
 ## Domain Codes
 
 Followings are examples reflecting domain models.
