@@ -64,7 +64,7 @@ if (result.isLessThan(Money.zero())) {
 
 ### BankAccount
 
-A Bank Account can be added events of cash deposit and cash withdrawal.
+A Bank Account can be added events of cash deposit or cash withdrawal.
 
 ```java
 BankAccount bankAccount = new BankAccount(1L)
