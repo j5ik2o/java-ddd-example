@@ -11,7 +11,7 @@ import java.util.List;
 
 public class BankAccountServiceTest {
 
-    public Money getTotal(BankAccount bankAccount){
+    public static Money getBalance(BankAccount bankAccount){
         BigDecimal totalAmount = BigDecimal.ZERO;
         for(BankAccountEvent event : bankAccount.getEvents()) {
             totalAmount = totalAmount.add(event.getMoney().getAmount());
@@ -23,11 +23,11 @@ public class BankAccountServiceTest {
     }
 
     @Test
-    public void transfer1() throws Exception {
+    public void transferTest1() throws Exception {
         Money baseMoney = new Money();
         baseMoney.setCurrency(Currency.getInstance("JPY"));
         baseMoney.setAmount(BigDecimal.valueOf(10000));
-        // 口座を宣言し、初期入金を行う
+
         BankAccount bankAccount1 = new BankAccount();
         bankAccount1.setId(IdGenerator.generateId());
         List<BankAccountEvent> events1 = Lists.newArrayList();
@@ -53,8 +53,8 @@ public class BankAccountServiceTest {
         events2.add(incrementEvent2);
         bankAccount2.setEvents(events2);
 
-        Money totalAmount1 = getTotal(bankAccount1);
-        Money totalAmount2 = getTotal(bankAccount2);
+        Money totalAmount1 = getBalance(bankAccount1);
+        Money totalAmount2 = getBalance(bankAccount2);
 
         System.out.println("bankAccount1 = " + totalAmount1);
         System.out.println("bankAccount2 = " + totalAmount2);
@@ -62,15 +62,15 @@ public class BankAccountServiceTest {
         Money data = new Money();
         data.setCurrency(bankAccount1.getEvents().get(0).getMoney().getCurrency());
         data.setAmount(BigDecimal.valueOf(10000));
-        // 口座間送金を行う
+
         BankAccountService.Result result = BankAccountService.moveData(
                 bankAccount1,
                 bankAccount2,
                 data
         );
 
-        Money newTotalAmount1 = getTotal(result.getTo());
-        Money newTotalAmount2 = getTotal(result.getFrom());
+        Money newTotalAmount1 = getBalance(result.getTo());
+        Money newTotalAmount2 = getBalance(result.getFrom());
 
         System.out.println("toTotalAmount = " + newTotalAmount1);
         System.out.println("fromTotalAmount = " + newTotalAmount2);
