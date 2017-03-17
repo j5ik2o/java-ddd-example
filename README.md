@@ -67,7 +67,7 @@ if (result.isLessThan(Money.zero())) {
 A Bank Account can be added events of cash deposit and cash withdrawal.
 
 ```java
-BankAccount bankAccount = new BankAccount(1L, ImmutableList.of())
+BankAccount bankAccount = new BankAccount(1L)
     .depositCash(Money.of(10000))
     .withdrawCash(Money.of(10000));
 System.out.println(bankAccount);
@@ -76,7 +76,7 @@ System.out.println(bankAccount);
 A BankAccount can be gotten the balance.
 
 ```java
-BankAccount bankAccount = new BankAccount(1L, ImmutableList.of()).depositCash(Money.of(10000));
+BankAccount bankAccount = new BankAccount(1L).depositCash(Money.of(10000));
 System.out.println(bankAccount.getBalance());
 ```
 
