@@ -67,7 +67,7 @@ if (result.isLessThan(Money.zero())) {
 A Bank Account can be added events of cash deposit or cash withdrawal.
 
 ```java
-BankAccount bankAccount = new BankAccount(1L)
+BankAccount bankAccount = BankAccount.of(1L)
     .depositCash(Money.of(10000))
     .withdrawCash(Money.of(10000));
 System.out.println(bankAccount);
