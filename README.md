@@ -6,6 +6,10 @@ This project is an example for DDD.
 
 This example is a domain related to the Bank Account.
 
+## Bounded Context
+
+Resolve transfer between Bank Accounts.
+
 ## Ubiquitous Language
 
 - Money Domain Model 
