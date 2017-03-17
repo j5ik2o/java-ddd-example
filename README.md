@@ -76,7 +76,7 @@ System.out.println(bankAccount);
 A BankAccount can be gotten the balance.
 
 ```java
-BankAccount bankAccount = new BankAccount(1L).depositCash(Money.of(10000));
+BankAccount bankAccount = BankAccount.of(1L).depositCash(Money.of(10000));
 System.out.println(bankAccount.getBalance());
 ```
 
