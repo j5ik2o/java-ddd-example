@@ -34,7 +34,7 @@ A Money can be added another money.
 ```java
 Money money1 = Money.of(10000);
 Money money2 = Money.of(10000);
-Money result = money1.plus(money2).substract(money2);
+Money result = money1.add(money2).substract(money2);
 System.out.println(result);
 ```
 
