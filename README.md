@@ -10,7 +10,7 @@ This example is a domain related to the Bank Account.
 
 Resolve transfer between Bank Accounts.
 
-## Ubiquitous Language
+## Ubiquitous Languages
 
 - Money Domain Model 
     - A Money can be added another money.
@@ -36,6 +36,9 @@ Domain models are followings.
 ## Domain Codes
 
 Followings are examples reflecting domain models.
+
+These objects constructed by reasonably brief and abstract ubiquitous languages are easy to understand. 
+It is also relatively easy to make the implementation follow changes to domain models.
 
 ### Money
     
