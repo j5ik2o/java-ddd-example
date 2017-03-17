@@ -56,7 +56,7 @@ A Money can be compared another money.
 ```java
 Money money3 = Money.of(10000);
 Money money4 = Money.of(20000);
-Money result = money3.substract(money2);
+Money result = money3.substract(money4);
 if (result.isLessThan(Money.zero())) {
     System.out.println("result is less than zero!");
 }
