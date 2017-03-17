@@ -9,7 +9,7 @@ This project is an example for DDD.
   - [BankAccountEvent](https://github.com/j5ik2o/java-ddd-example/blob/master/domain/src/main/java/com/github/j5ik2o/ddd_example/domain/BankAccountEvent.java)
 - [BankAccountService](https://github.com/j5ik2o/java-ddd-example/blob/master/domain/src/main/java/com/github/j5ik2o/ddd_example/domain/BankAccountService.java)
 
-## Ubiquitous Language
+## Ubiquitous Language and Domain Models
 
 - Money Domain Model 
     - A Money can be added another money.
@@ -25,7 +25,7 @@ This project is an example for DDD.
     
 ## Domain Codes
 
-
+Followings are examples reflecting the domain model.
 
 ### Money
     
