@@ -8,7 +8,7 @@ public class MoneyTest {
     public void test() {
         Money money1 = Money.of(10000);
         Money money2 = Money.of(10000);
-        Money result = money1.plus(money2);
+        Money result = money1.add(money2);
         if (result.isLessThan(Money.zero())) {
             System.out.println("result is less than zero!");
         }

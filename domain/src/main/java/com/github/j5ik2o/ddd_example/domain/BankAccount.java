@@ -75,12 +75,12 @@ public final class BankAccount {
      *
      * @return 残高
      */
-    public Money getTotalAmount() {
-        return getTotalAmountByEvents(events);
+    public Money getBalance() {
+        return getBalanceByEvents(events);
     }
 
     public static BankAccount of(Long id, List<BankAccountEvent> events) {
-        if (getTotalAmountByEvents(events).isLessThan(BigDecimal.ZERO)) {
+        if (getBalanceByEvents(events).isLessThan(BigDecimal.ZERO)) {
             throw new IllegalArgumentException("total money is less than zero!");
         }
         return new BankAccount(id, events);
@@ -90,7 +90,7 @@ public final class BankAccount {
         return of(id, Lists.newArrayList());
     }
 
-    private static Money getTotalAmountByEvents(List<BankAccountEvent> events) {
+    private static Money getBalanceByEvents(List<BankAccountEvent> events) {
         return getTotalAmountByMonies(getMonies(events));
     }
 

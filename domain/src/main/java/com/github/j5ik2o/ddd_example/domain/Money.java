@@ -32,7 +32,7 @@ public final class Money {
      * @param other お金
      * @return お金
      */
-    public Money plus(Money other) {
+    public Money add(Money other) {
         Validate.notNull(other);
         Validate.isTrue(currency.equals(other.currency));
         return of(amount.add(other.amount), currency);
@@ -46,8 +46,8 @@ public final class Money {
      * @param other お金
      * @return お金
      */
-    public Money minus(Money other) {
-        return plus(other.negated());
+    public Money substract(Money other) {
+        return add(other.negated());
     }
 
     public boolean isGreaterThan(Money other) {
@@ -79,7 +79,7 @@ public final class Money {
             Currency currency = monies.get(0).getCurrency();
             Money result = zero(currency);
             for (Money money : monies) {
-                result = result.plus(money);
+                result = result.add(money);
             }
             return result;
         }
