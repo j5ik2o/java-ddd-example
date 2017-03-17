@@ -4,7 +4,7 @@ This project is an example for DDD.
 
 ## Domain
 
-This example is a domain related to the Bank Account.
+This domain of example is what related to the Bank Account.
 
 ## Bounded Context
 
