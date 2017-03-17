@@ -13,7 +13,7 @@ public class BankAccountEvent {
 
     private Long fromBankAccountId;
 
-    private Money amount;
+    private Money money;
 
     private ZonedDateTime occurredAt;
 

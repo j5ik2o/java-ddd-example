@@ -12,14 +12,14 @@ import java.util.List;
 public class BankAccountServiceTest {
 
     public Money getTotal(BankAccount bankAccount){
-        BigDecimal total1 = BigDecimal.ZERO;
+        BigDecimal totalAmount = BigDecimal.ZERO;
         for(BankAccountEvent event : bankAccount.getEvents()) {
-            total1 = total1.add(event.getAmount().getAmount());
+            totalAmount = totalAmount.add(event.getMoney().getAmount());
         }
-        Money totalAmount1 = new Money();
-        totalAmount1.setCurrency(bankAccount.getEvents().get(0).getAmount().getCurrency());
-        totalAmount1.setAmount(total1);
-        return totalAmount1;
+        Money money = new Money();
+        money.setCurrency(bankAccount.getEvents().get(0).getMoney().getCurrency());
+        money.setAmount(totalAmount);
+        return money;
     }
 
     @Test
@@ -35,7 +35,7 @@ public class BankAccountServiceTest {
         incrementEvent1.setId(IdGenerator.generateId());
         incrementEvent1.setToBankAccountId(bankAccount1.getId());
         incrementEvent1.setFromBankAccountId(null);
-        incrementEvent1.setAmount(baseMoney);
+        incrementEvent1.setMoney(baseMoney);
         incrementEvent1.setOccurredAt(ZonedDateTime.now());
         events1.add(incrementEvent1);
         bankAccount1.setEvents(events1);
@@ -48,7 +48,7 @@ public class BankAccountServiceTest {
         incrementEvent2.setId(IdGenerator.generateId());
         incrementEvent2.setToBankAccountId(bankAccount1.getId());
         incrementEvent2.setFromBankAccountId(null);
-        incrementEvent2.setAmount(baseMoney);
+        incrementEvent2.setMoney(baseMoney);
         incrementEvent2.setOccurredAt(ZonedDateTime.now());
         events2.add(incrementEvent2);
         bankAccount2.setEvents(events2);
@@ -60,7 +60,7 @@ public class BankAccountServiceTest {
         System.out.println("bankAccount2 = " + totalAmount2);
 
         Money data = new Money();
-        data.setCurrency(bankAccount1.getEvents().get(0).getAmount().getCurrency());
+        data.setCurrency(bankAccount1.getEvents().get(0).getMoney().getCurrency());
         data.setAmount(BigDecimal.valueOf(10000));
         // 口座間送金を行う
         BankAccountService.Result result = BankAccountService.moveData(

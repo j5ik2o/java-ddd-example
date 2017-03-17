@@ -17,9 +17,9 @@ public final class BankAccount {
     @NonNull
     private List<BankAccountEvent> events;
 
-    private BankAccount addBankAccountEvent(Long toBankAccountId, Long fromBankAccountId, Money amount) {
+    private BankAccount addBankAccountEvent(Long toBankAccountId, Long fromBankAccountId, Money money) {
         Long eventId = IdGenerator.generateId();
-        return addBankAccountEvent(BankAccountEvent.of(eventId, id, null, amount));
+        return addBankAccountEvent(BankAccountEvent.of(eventId, id, null, money));
     }
 
     private BankAccount addBankAccountEvent(BankAccountEvent event) {
@@ -28,29 +28,60 @@ public final class BankAccount {
         return of(id, result);
     }
 
-    public BankAccount depositCash(Money amount) {
-        return addBankAccountEvent(id, null, amount);
+    /**
+     * この口座に現金を預け入れる。
+     *
+     * @param money お金
+     * @return 新しい状態の口座
+     */
+    public BankAccount depositCash(Money money) {
+        return addBankAccountEvent(id, null, money);
     }
 
-    public BankAccount withdrawCash(Money amount) {
-        return addBankAccountEvent(null, id, amount.negated());
+    /**
+     * この口座から現金を引き出す。
+     *
+     * @param money お金
+     * @return 新しい状態の口座
+     */
+    public BankAccount withdrawCash(Money money) {
+        return addBankAccountEvent(null, id, money.negated());
     }
 
-    public BankAccount depositFrom(BankAccount from, Money amount) {
-        return addBankAccountEvent(id, from.getId(), amount);
+    /**
+     * この口座に他の口座からお金を預け入れる。
+     *
+     * @param from 移動元の口座
+     * @param money お金
+     * @return 新しい状態の口座
+     */
+    public BankAccount depositFrom(BankAccount from, Money money) {
+        return addBankAccountEvent(id, from.getId(), money);
     }
 
-    public BankAccount withdrawTo(BankAccount to, Money amount) {
-        return addBankAccountEvent(to.getId(), id, amount.negated());
+    /**
+     * この口座から他の口座にお金を引き出す。
+     *
+     * @param to 移動先の口座
+     * @param money お金
+     * @return 新しい口座
+     */
+    public BankAccount withdrawTo(BankAccount to, Money money) {
+        return addBankAccountEvent(to.getId(), id, money.negated());
     }
 
+    /**
+     * この口座の残高を返す。
+     *
+     * @return 残高
+     */
     public Money getTotalAmount() {
         return getTotalAmountByEvents(events);
     }
 
     public static BankAccount of(Long id, List<BankAccountEvent> events) {
         if (getTotalAmountByEvents(events).isLessThan(BigDecimal.ZERO)) {
-            throw new IllegalArgumentException("total amount is less than zero!");
+            throw new IllegalArgumentException("total money is less than zero!");
         }
         return new BankAccount(id, events);
     }
@@ -70,7 +101,7 @@ public final class BankAccount {
     private static List<Money> getMonies(List<BankAccountEvent> events) {
         List<Money> result = Lists.newArrayList();
         for (BankAccountEvent event : events) {
-            result.add(event.getAmount());
+            result.add(event.getMoney());
         }
         return result;
     }

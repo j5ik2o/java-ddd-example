@@ -19,14 +19,14 @@ public class BankAccountServiceTest {
         System.out.println("bankAccount2 = " + bankAccount2.getTotalAmount());
 
         // 口座間送金を行う
-        BankAccountService.Result result = BankAccountService.transfer(
+        BankAccountService.TransferResult transferResult = BankAccountService.transfer(
                 bankAccount1,
                 bankAccount2,
                 Money.of(BigDecimal.valueOf(10000))
         );
 
-        System.out.println("to = " + result.getTo().getTotalAmount());
-        System.out.println("from = " + result.getFrom().getTotalAmount());
+        System.out.println("to = " + transferResult.getTo().getTotalAmount());
+        System.out.println("from = " + transferResult.getFrom().getTotalAmount());
     }
 
     @Test
@@ -42,13 +42,13 @@ public class BankAccountServiceTest {
         System.out.println("bankAccount2 = " + bankAccount2.getTotalAmount());
 
         // 口座間送金を行う
-        BankAccountService.Result result = BankAccountService.transfer(
+        BankAccountService.TransferResult transferResult = BankAccountService.transfer(
                 bankAccount1,
                 bankAccount2,
                 Money.of(BigDecimal.valueOf(20000))
         );
 
-        System.out.println("to = " + result.getTo().getTotalAmount());
-        System.out.println("from = " + result.getFrom().getTotalAmount());
+        System.out.println("to = " + transferResult.getTo().getTotalAmount());
+        System.out.println("from = " + transferResult.getFrom().getTotalAmount());
     }
 }

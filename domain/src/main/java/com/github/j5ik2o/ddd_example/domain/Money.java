@@ -9,6 +9,9 @@ import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * お金を表す値オブジェクト。
+ */
 @Value
 public final class Money {
 
@@ -23,12 +26,26 @@ public final class Money {
         return of(amount.negate(), currency);
     }
 
+    /**
+     * お金を足す。
+     *
+     * @param other お金
+     * @return お金
+     */
     public Money plus(Money other) {
         Validate.notNull(other);
         Validate.isTrue(currency.equals(other.currency));
         return of(amount.add(other.amount), currency);
     }
 
+    /**
+     * お金を引く。
+     *
+     * お金からお金を引くとお金の量が負になる可能性がある。
+     *
+     * @param other お金
+     * @return お金
+     */
     public Money minus(Money other) {
         return plus(other.negated());
     }
@@ -49,6 +66,12 @@ public final class Money {
         return this.amount.compareTo(amount) < 0;
     }
 
+    /**
+     * 複数のお金を合計する。
+     *
+     * @param monies 複数のお金
+     * @return 合計されたお金
+     */
     public static Money sum(List<Money> monies) {
         if (monies.isEmpty()) {
             return zero(Money.DefaultCurrency);

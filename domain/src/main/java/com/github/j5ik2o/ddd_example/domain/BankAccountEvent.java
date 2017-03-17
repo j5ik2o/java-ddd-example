@@ -12,11 +12,11 @@ public final class BankAccountEvent {
     private Long toBankAccountId;
     private Long fromBankAccountId;
     @NonNull
-    private Money amount;
+    private Money money;
     @NonNull
     private ZonedDateTime occurredAt;
 
-    public static BankAccountEvent of(Long id, Long toBankAccountId, Long fromBankAccountId, Money amount) {
-        return new BankAccountEvent(id, toBankAccountId, fromBankAccountId, amount, ZonedDateTime.now());
+    public static BankAccountEvent of(Long id, Long toBankAccountId, Long fromBankAccountId, Money money) {
+        return new BankAccountEvent(id, toBankAccountId, fromBankAccountId, money, ZonedDateTime.now());
     }
 }

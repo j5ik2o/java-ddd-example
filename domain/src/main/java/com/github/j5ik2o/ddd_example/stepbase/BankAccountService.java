@@ -15,22 +15,22 @@ public class BankAccountService {
         private BankAccount from;
     }
 
-    public static Result moveData(BankAccount to, BankAccount from, Money amount) {
+    public static Result moveData(BankAccount to, BankAccount from, Money money) {
         BigDecimal totalAmount = BigDecimal.ZERO;
         for(BankAccountEvent event : to.getEvents()) {
-            totalAmount = totalAmount.add(event.getAmount().getAmount());
+            totalAmount = totalAmount.add(event.getMoney().getAmount());
         }
-        if (totalAmount.compareTo(amount.getAmount()) < 0) {
-            throw new IllegalArgumentException("total amount is less than zero!");
+        if (totalAmount.compareTo(money.getAmount()) < 0) {
+            throw new IllegalArgumentException("total money is less than zero!");
         }
         BankAccountEvent decrementEvent = new BankAccountEvent();
         decrementEvent.setId(IdGenerator.generateId());
         decrementEvent.setFromBankAccountId(from.getId());
         decrementEvent.setToBankAccountId(to.getId());
         Money negated = new Money();
-        negated.setCurrency(amount.getCurrency());
-        negated.setAmount(amount.getAmount().negate());
-        decrementEvent.setAmount(negated);
+        negated.setCurrency(money.getCurrency());
+        negated.setAmount(money.getAmount().negate());
+        decrementEvent.setMoney(negated);
         decrementEvent.setOccurredAt(ZonedDateTime.now());
         BankAccount newFrom = new BankAccount();
         List<BankAccountEvent> newFromEvent = Lists.newArrayList(from.getEvents());
@@ -42,7 +42,7 @@ public class BankAccountService {
         incrementEvent.setId(IdGenerator.generateId());
         incrementEvent.setFromBankAccountId(from.getId());
         incrementEvent.setToBankAccountId(to.getId());
-        incrementEvent.setAmount(amount);
+        incrementEvent.setMoney(money);
         incrementEvent.setOccurredAt(ZonedDateTime.now());
         BankAccount newTo = new BankAccount();
         List<BankAccountEvent> newToEvent = Lists.newArrayList(to.getEvents());
