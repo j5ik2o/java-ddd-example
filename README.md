@@ -25,7 +25,7 @@ This project is an example for DDD.
     
 ## Domain Codes
 
-Followings are examples reflecting the domain model.
+Followings are examples reflecting domain models.
 
 ### Money
     
