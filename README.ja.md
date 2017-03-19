@@ -1,88 +1,74 @@
 # java-ddd-example
 
-This project is an example for DDD.
+このプロジェクトはDDDの例です。
 
-[日本語版README](README.ja.md)
-
-## Domain
-
-This domain of example is what related to the Bank Account.
-
-## Bounded Context
-
-Resolve transfer between Bank Accounts.
-
-## Ubiquitous Languages
-
-- Money Domain Model
-    - A Money can be added another money.
-    - A Money can be subtracted another money.
-    - A Money can be compared another money.
-- Bank Account Domain Model
-    - A Bank Account can be gotten the balance.
-    - A Bank Account can be added events of cash deposit or cash withdrawal.
-    - A Bank Account can be added deposit event from another Bank Account, and withdrawal event to another Bank Account.
-    - The Balance of the Bank Account must not be less than 0.
-- Bank Account Domain Service
-    - The Bank Account Service can transfer a money from a Bank Account to a Bank Account.
-
-## Domain Models
-
-Domain models are followings.
+## 以下がドメインモデルです
 
 - [Money](https://github.com/j5ik2o/java-ddd-example/blob/master/domain/src/main/java/com/github/j5ik2o/ddd_example/domain/Money.java)
 - [BankAccount](https://github.com/j5ik2o/java-ddd-example/blob/master/domain/src/main/java/com/github/j5ik2o/ddd_example/domain/BankAccount.java)
   - [BankAccountEvent](https://github.com/j5ik2o/java-ddd-example/blob/master/domain/src/main/java/com/github/j5ik2o/ddd_example/domain/BankAccountEvent.java)
 - [BankAccountService](https://github.com/j5ik2o/java-ddd-example/blob/master/domain/src/main/java/com/github/j5ik2o/ddd_example/domain/BankAccountService.java)
 
-## Domain Codes
+## ユビキタス言語とドメインモデル
 
-Followings are examples reflecting domain models.
+- お金ドメインモデル
+    - お金はお金を追加できる
+    - お金はお金を差し引ける
+    - お金とお金は比較できる
+- 銀行口座ドメインモデル
+    - 銀行口座から残高を取得できる
+    - 銀行口座に現金での入金および出金イベントを追加できる
+    - 銀行口座に別の口座からの入金イベントを追加できる。もしくは、口座から別の口座への出金イベントを追加できる
+    - 銀行口座の残高は0未満になってはならない
+- 銀行口座ドメインサービス
+    - 銀行口座ドメインサービスは、口座間の送金ができる。
 
-These objects constructed by reasonably brief and abstract ubiquitous languages are easy to understand.
-It is also relatively easy to make the implementation follow changes to domain models.
+## ドメインコード
 
-### Money
+ドメインモデルを反映した例は以下。
 
-A Money can be added another money.
+### お金
+
+- お金はお金を追加できる。
+- お金はお金を差し引ける。
 
 ```java
 Money money1 = Money.of(10000);
 Money money2 = Money.of(10000);
-Money result = money1.add(money2).substract(money2);
+Money result = money1.plus(money2).substract(money2);
 System.out.println(result);
 ```
 
-A Money can be compared another money.
+- お金とお金は比較できる。
 
 ```java
 Money money3 = Money.of(10000);
 Money money4 = Money.of(20000);
-Money result = money3.substract(money4);
+Money result = money3.substract(money2);
 if (result.isLessThan(Money.zero())) {
     System.out.println("result is less than zero!");
 }
 ```
 
-### BankAccount
+### 銀行口座
 
-A Bank Account can be added events of cash deposit or cash withdrawal.
+口座に現金での入金および出金イベントを追加できる。
 
 ```java
-BankAccount bankAccount = BankAccount.of(1L)
+BankAccount bankAccount = new BankAccount(1L, ImmutableList.of())
     .depositCash(Money.of(10000))
     .withdrawCash(Money.of(10000));
 System.out.println(bankAccount);
 ```
 
-A BankAccount can be gotten the balance.
+口座から残高を取得できる。
 
 ```java
-BankAccount bankAccount = BankAccount.of(1L).depositCash(Money.of(10000));
+BankAccount bankAccount = new BankAccount(1L, ImmutableList.of()).depositCash(Money.of(10000));
 System.out.println(bankAccount.getBalance());
 ```
 
-A Bank Account can be added deposit event from another Bank Account, and withdrawal event to another Bank Account.
+口座に別の口座からの入金イベントを追加できる。もしくは、口座から別の口座への出金イベントを追加できる。
 
 ```java
 public final class BankAccountService {
@@ -96,7 +82,7 @@ public final class BankAccountService {
 }
 ```
 
-The Balance of the Bank Account must not be less than 0.
+口座の残高は0未満になってはならない
 
 ```java
 @Value
@@ -115,9 +101,9 @@ public final class BankAccount {
 }
 ```
 
-### BankAccountService
+### 銀行口座ドメインサービス
 
-The Bank Account Service can transfer a money from a Bank Account to a Bank Account.
+銀行口座ドメインサービスは、口座間の送金ができる。
 
 ```java
 Money initialMoney = Money.of(10000);
@@ -137,11 +123,10 @@ System.out.println("to = " + transferResult.getTo().getBalance());
 System.out.println("from = " + transferResult.getFrom().getBalance());
 ```
 
-## An example of transfer between Bank Accounts in Anemic objects.
+## 貧血症オブジェクトにおける、銀行口座間転送の例
 
-This example is overwhelmingly detailed.
-Because there is no mental model, this codes are difficult to understand.
-Changing the codes are also difficult if the domain models is changed.
+この例は圧倒的に詳細です。メンタルモデルがないため、コードは理解しがたい。
+ドメインモデルが変更された場合、コードを変更することも難しい。
 
 ```java
 public static Money getBalance(BankAccount bankAccount){
