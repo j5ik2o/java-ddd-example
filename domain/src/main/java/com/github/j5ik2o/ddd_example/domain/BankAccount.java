@@ -2,16 +2,12 @@ package com.github.j5ik2o.ddd_example.domain;
 
 import com.github.j5ik2o.ddd_eaxmple.utils.IdGenerator;
 import com.google.common.collect.Lists;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.NonNull;
-import lombok.Value;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
-@Value
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public final class BankAccount {
 
     @NonNull
@@ -19,6 +15,32 @@ public final class BankAccount {
 
     @NonNull
     private List<BankAccountEvent> events;
+
+    @NonNull
+    public Long getId() {
+        return this.id;
+    }
+
+    @NonNull
+    public List<BankAccountEvent> getEvents() {
+        return cloneList(this.events);
+    }
+
+    private BankAccount(Long id, List<BankAccountEvent> events) {
+        this.id = id;
+        if (getBalanceByEvents(events).isLessThan(BigDecimal.ZERO)) {
+            throw new IllegalArgumentException("total money is less than zero!");
+        }
+        this.events = cloneList(events);
+    }
+
+    private List<BankAccountEvent> cloneList(List<BankAccountEvent> events) {
+        ArrayList<BankAccountEvent> result = Lists.newArrayListWithCapacity(events.size());
+        for (BankAccountEvent event : events) {
+            result.add(event);
+        }
+        return result;
+    }
 
     private BankAccount addBankAccountEvent(Long toBankAccountId, Long fromBankAccountId, Money money) {
         Long eventId = IdGenerator.generateId();
@@ -54,7 +76,7 @@ public final class BankAccount {
     /**
      * この口座に他の口座からお金を預け入れる。
      *
-     * @param from 移動元の口座
+     * @param from  移動元の口座
      * @param money お金
      * @return 新しい状態の口座
      */
@@ -65,7 +87,7 @@ public final class BankAccount {
     /**
      * この口座から他の口座にお金を引き出す。
      *
-     * @param to 移動先の口座
+     * @param to    移動先の口座
      * @param money お金
      * @return 新しい口座
      */
@@ -83,9 +105,6 @@ public final class BankAccount {
     }
 
     public static BankAccount of(Long id, List<BankAccountEvent> events) {
-        if (getBalanceByEvents(events).isLessThan(BigDecimal.ZERO)) {
-            throw new IllegalArgumentException("total money is less than zero!");
-        }
         return new BankAccount(id, events);
     }
 
@@ -107,5 +126,32 @@ public final class BankAccount {
             result.add(event.getMoney());
         }
         return result;
+    }
+
+    public boolean equals(Object o) {
+        if (o == this) return true;
+        if (!(o instanceof BankAccount)) return false;
+        final BankAccount other = (BankAccount) o;
+        final Object this$id = this.getId();
+        final Object other$id = other.getId();
+        if (this$id == null ? other$id != null : !this$id.equals(other$id)) return false;
+        final Object this$events = this.getEvents();
+        final Object other$events = other.getEvents();
+        if (this$events == null ? other$events != null : !this$events.equals(other$events)) return false;
+        return true;
+    }
+
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = 1;
+        final Object $id = this.getId();
+        result = result * PRIME + ($id == null ? 43 : $id.hashCode());
+        final Object $events = this.getEvents();
+        result = result * PRIME + ($events == null ? 43 : $events.hashCode());
+        return result;
+    }
+
+    public String toString() {
+        return "com.github.j5ik2o.ddd_example.domain.BankAccount(id=" + this.getId() + ", events=" + this.getEvents() + ")";
     }
 }
