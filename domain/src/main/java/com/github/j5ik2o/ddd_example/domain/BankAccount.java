@@ -2,6 +2,8 @@ package com.github.j5ik2o.ddd_example.domain;
 
 import com.github.j5ik2o.ddd_eaxmple.utils.IdGenerator;
 import com.google.common.collect.Lists;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;
 
@@ -9,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Value
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public final class BankAccount {
 
     @NonNull

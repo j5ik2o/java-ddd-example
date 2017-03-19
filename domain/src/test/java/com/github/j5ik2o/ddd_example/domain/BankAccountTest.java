@@ -7,7 +7,7 @@ public class BankAccountTest {
 
     @Test
     public void test() {
-        BankAccount bankAccount = new BankAccount(1L, ImmutableList.of()).depositCash(Money.of(10000));
+        BankAccount bankAccount = BankAccount.of(1L).depositCash(Money.of(10000));
         System.out.println(bankAccount.getBalance());
     }
 

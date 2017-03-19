@@ -2,6 +2,8 @@ package com.github.j5ik2o.ddd_example.stepbase;
 
 import com.github.j5ik2o.ddd_eaxmple.utils.IdGenerator;
 import com.google.common.collect.Lists;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.math.BigDecimal;

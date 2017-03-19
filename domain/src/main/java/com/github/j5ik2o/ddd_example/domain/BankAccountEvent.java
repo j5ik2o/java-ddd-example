@@ -1,11 +1,14 @@
 package com.github.j5ik2o.ddd_example.domain;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 import lombok.NonNull;
 import lombok.Value;
 
 import java.time.ZonedDateTime;
 
 @Value
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public final class BankAccountEvent {
     @NonNull
     private Long id;

@@ -3,6 +3,8 @@ package com.github.j5ik2o.ddd_example.domain;
 import com.github.j5ik2o.ddd_eaxmple.utils.IdGenerator;
 import org.junit.Test;
 
+import static org.junit.Assert.fail;
+
 public class BankAccountServiceTest {
 
     @Test
@@ -33,13 +35,12 @@ public class BankAccountServiceTest {
         System.out.println("bankAccount1 = " + bankAccount1.getBalance());
         System.out.println("bankAccount2 = " + bankAccount2.getBalance());
 
-        BankAccountService.TransferResult transferResult = BankAccountService.transfer(
-                bankAccount1,
-                bankAccount2,
-                Money.of(20000)
-        );
+        try {
+            BankAccountService.transfer(bankAccount1, bankAccount2, Money.of(20000));
+            fail("No error occurred!!!");
+        } catch (IllegalArgumentException ignored) {
+            ;
+        }
 
-        System.out.println("to = " + transferResult.getTo().getBalance());
-        System.out.println("from = " + transferResult.getFrom().getBalance());
     }
 }
