@@ -1,9 +1,7 @@
-package com.github.j5ik2o.ddd_example.stepbase;
+package com.github.j5ik2o.ddd_example.bank_account_transfer.stepbase;
 
 import com.github.j5ik2o.ddd_eaxmple.utils.IdGenerator;
 import com.google.common.collect.Lists;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.math.BigDecimal;

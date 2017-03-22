@@ -1,6 +1,10 @@
-package com.github.j5ik2o.ddd_example.stepbase;
+package com.github.j5ik2o.ddd_example.bank_account_transfer.stepbase;
 
 import com.github.j5ik2o.ddd_eaxmple.utils.IdGenerator;
+import com.github.j5ik2o.ddd_example.bank_account_transfer.stepbase.BankAccount;
+import com.github.j5ik2o.ddd_example.bank_account_transfer.stepbase.BankAccountEvent;
+import com.github.j5ik2o.ddd_example.bank_account_transfer.stepbase.BankAccountService;
+import com.github.j5ik2o.ddd_example.bank_account_transfer.stepbase.Money;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 

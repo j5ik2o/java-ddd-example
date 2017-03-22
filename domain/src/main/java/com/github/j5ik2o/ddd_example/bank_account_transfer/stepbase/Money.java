@@ -1,4 +1,4 @@
-package com.github.j5ik2o.ddd_example.stepbase;
+package com.github.j5ik2o.ddd_example.bank_account_transfer.stepbase;
 
 import lombok.Data;
 

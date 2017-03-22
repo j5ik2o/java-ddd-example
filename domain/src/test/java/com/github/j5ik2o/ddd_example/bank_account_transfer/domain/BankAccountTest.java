@@ -1,6 +1,5 @@
-package com.github.j5ik2o.ddd_example.domain;
+package com.github.j5ik2o.ddd_example.bank_account_transfer.domain;
 
-import com.google.common.collect.ImmutableList;
 import org.junit.Test;
 
 public class BankAccountTest {

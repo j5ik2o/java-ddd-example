@@ -1,13 +1,10 @@
-package com.github.j5ik2o.ddd_example.stepbase;
+package com.github.j5ik2o.ddd_example.bank_account_transfer.stepbase;
 
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.util.Currency;
 
-/**
- * Created by j5ik2o on 2017/03/16.
- */
 public class MoneyTest {
 
     @Test

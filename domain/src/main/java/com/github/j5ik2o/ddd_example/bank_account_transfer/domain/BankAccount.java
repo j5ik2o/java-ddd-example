@@ -1,8 +1,9 @@
-package com.github.j5ik2o.ddd_example.domain;
+package com.github.j5ik2o.ddd_example.bank_account_transfer.domain;
 
 import com.github.j5ik2o.ddd_eaxmple.utils.IdGenerator;
 import com.google.common.collect.Lists;
 import lombok.NonNull;
+import org.apache.commons.lang3.Validate;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -27,6 +28,8 @@ public final class BankAccount {
     }
 
     private BankAccount(Long id, List<BankAccountEvent> events) {
+        Validate.notNull(id);
+        Validate.notNull(events);
         this.id = id;
         if (getBalanceByEvents(events).isLessThan(BigDecimal.ZERO)) {
             throw new IllegalArgumentException("total money is less than zero!");
@@ -152,6 +155,6 @@ public final class BankAccount {
     }
 
     public String toString() {
-        return "com.github.j5ik2o.ddd_example.domain.BankAccount(id=" + this.getId() + ", events=" + this.getEvents() + ")";
+        return "com.github.j5ik2o.ddd_example.bank_account_transfer.domain.BankAccount(id=" + this.getId() + ", events=" + this.getEvents() + ")";
     }
 }
